@@ -7,9 +7,16 @@
 
 	onMount(async () => {
 		const instance = new ComlinkWorker<typeof import('./worker')>(
-			new URL('./worker', import.meta.url)
+			new URL('/worker', import.meta.url)
 		);
 		console.log(await instance.add(2, 3));
+		try {
+			const dictionary_raw_res = await fetch('/words_alpha.txt.gz');
+			const dictionary_raw = await (await dictionary_raw_res.blob()).text();
+			console.log(dictionary_raw);
+		} catch (error) {
+			console.error(error);
+		}
 	});
 </script>
 
