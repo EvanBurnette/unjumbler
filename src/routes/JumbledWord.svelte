@@ -6,6 +6,9 @@
 	let suggestions: string[] = [];
 
 	let selection: string = '';
+
+	import { xStyle } from './store';
+	console.debug($xStyle);
 </script>
 
 <section>
@@ -44,7 +47,7 @@
 				{/each}
 				<button
 					aria-controls="deselect word"
-					class="btn variant-filled-tertiary py-0.5 px-2.5 aspect-square self-start"
+					class="${`${$xStyle} self-start`}"
 					on:click={() => {
 						selection = '';
 					}}>X</button
