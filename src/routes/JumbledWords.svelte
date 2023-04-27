@@ -1,27 +1,37 @@
-<script>
+<script lang="ts">
 	import JumbledWord from './JumbledWord.svelte';
 
-	let jumbledWords = new Array(1).fill('');
+	let jumbledWords = new Array();
 
 	function addWord() {
-		jumbledWords.push('');
+		jumbledWords.push(true);
 		jumbledWords = jumbledWords;
+	}
+	addWord();
+	export let getWords: Function;
+
+	// list is empty so cleanup
+	$: if (jumbledWords.every((bool) => !bool)) {
+		jumbledWords.length = 0;
 	}
 </script>
 
 <ul>
-	{#each jumbledWords as _, idx}
-		<li class="flex">
-			<JumbledWord {idx} />
-			<button
-				aria-controls="delete word"
-				class="btn variant-filled-tertiary py-0.5 px-2.5 aspect-square self-start"
-				on:click={() => {
-					jumbledWords.splice(idx, 1);
-					jumbledWords = jumbledWords;
-				}}>X</button
-			>
-		</li>
+	{#each jumbledWords as jWord, idx}
+		{#if jWord}
+			<li class="flex">
+				<JumbledWord {idx} {getWords} />
+				<button
+					aria-controls="delete word"
+					class="btn variant-filled-tertiary py-0.5 px-2.5 aspect-square self-start"
+					on:click={() => {
+						// this hack prevents the svelte runtime from only deleting the last element
+						jumbledWords[idx] = false;
+						jumbledWords = jumbledWords;
+					}}>X</button
+				>
+			</li>
+		{/if}
 	{/each}
 </ul>
 <div class="px-0 w-full">
