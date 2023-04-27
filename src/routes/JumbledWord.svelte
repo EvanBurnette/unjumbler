@@ -6,9 +6,6 @@
 	let suggestions: string[] = [];
 
 	let selection: string = '';
-
-	import { xStyle } from './store';
-	console.debug($xStyle);
 </script>
 
 <section>
@@ -47,7 +44,7 @@
 				{/each}
 				<button
 					aria-controls="deselect word"
-					class="${`${$xStyle} self-start`}"
+					class="xButton"
 					on:click={() => {
 						selection = '';
 					}}>X</button
@@ -57,7 +54,7 @@
 	</ol>
 </section>
 
-<style>
+<style lang="postcss">
 	ol > li > button {
 		margin-right: -0.5rem;
 	}

@@ -31,8 +31,11 @@
 	</main>
 </div>
 
-<style>
+<style lang="postcss">
 	/* :global(*) {
 		border: dotted white 1px;
 	} */
+	:global(.xButton) {
+		@apply btn variant-filled-tertiary py-0.5 px-2.5 rounded;
+	}
 </style>

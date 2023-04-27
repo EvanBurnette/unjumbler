@@ -1,6 +1,4 @@
 <script>
-	import { xStyle } from './store';
-
 	let empties = [true, true, true];
 
 	const addLetter = () => {
@@ -30,7 +28,7 @@
 		{/if}
 	{/each}
 	<span class="grow" />
-	<button class={$xStyle} on:click={deleteLast}>X</button>
+	<button class="xButton" on:click={deleteLast}>X</button>
 </ul>
 <div class="flex">
 	<button class="btn variant-ringed-primary grow" on:click={addLetter}> + Add Letter </button>

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import JumbledWord from './JumbledWord.svelte';
-	import { xStyle } from './store';
 
 	let jumbledWords = new Array();
 
@@ -25,7 +24,7 @@
 				<JumbledWord {idx} {getWords} />
 				<button
 					aria-controls="delete word"
-					class="{$xStyle} self-start"
+					class="xButton self-start"
 					on:click={() => {
 						// this hack prevents the svelte runtime from only deleting the last element
 						jumbledWords[idx] = false;
