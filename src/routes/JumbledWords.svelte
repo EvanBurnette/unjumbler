@@ -11,6 +11,7 @@
 	export let getWords: Function;
 
 	// list is empty so cleanup
+	// part of hack that fixes memory leak
 	$: if (jumbledWords.every((bool) => !bool)) {
 		jumbledWords.length = 0;
 	}
