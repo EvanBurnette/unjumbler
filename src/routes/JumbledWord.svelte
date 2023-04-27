@@ -4,14 +4,16 @@
 
 	let jumbledWord = '';
 	let suggestions: string[] = [];
+
+	let selection: string = '';
 </script>
 
 <section>
 	<label for="jumbledIn" class="label flex" aria-label="{idx} scrambled word">
 		<input
 			bind:value={jumbledWord}
-			on:change={() => {
-				suggestions = getWords(jumbledWord);
+			on:change={async () => {
+				suggestions = await getWords(jumbledWord.toLowerCase());
 			}}
 			id="jumbledIn"
 			type="text"
@@ -20,13 +22,35 @@
 	</label>
 
 	<ol>
-		{#each suggestions as suggestion, i}
+		{#if selection == ''}
+			{#each suggestions as suggestion}
+				<li class="flex">
+					<button
+						class="btn variant-ghost-tertiary uppercase w-full"
+						on:click={() => {
+							selection = suggestion;
+						}}
+					>
+						{suggestion}
+					</button>
+				</li>
+			{/each}
+		{:else}
 			<li class="flex">
-				<button class="btn variant-ghost-tertiary uppercase w-full">
-					{suggestion}
-				</button>
+				{#each selection as letter}
+					<button class="btn uppercase w-full">
+						{letter}
+					</button>
+				{/each}
+				<button
+					aria-controls="deselect word"
+					class="btn variant-filled-tertiary py-0.5 px-2.5 aspect-square self-start"
+					on:click={() => {
+						selection = '';
+					}}>X</button
+				>
 			</li>
-		{/each}
+		{/if}
 	</ol>
 </section>
 
