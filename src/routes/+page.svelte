@@ -5,24 +5,26 @@
 	import Solve from './Solve.svelte';
 	import { onMount } from 'svelte';
 
+	let getWords: Function;
+
 	onMount(async () => {
-		const instance = new ComlinkWorker<typeof import('./worker')>(
+		const worker = new ComlinkWorker<typeof import('./worker')>(
 			new URL('/worker', import.meta.url)
 		);
-		console.log(await instance.add(2, 3));
 		try {
 			const dictionary_raw_res = await fetch('/words_alpha.txt.gz');
 			const dictionary_raw = await (await dictionary_raw_res.blob()).text();
-			console.log(dictionary_raw);
+			worker.setDictionary(dictionary_raw);
 		} catch (error) {
 			console.error(error);
 		}
+		getWords = worker.getWords;
 	});
 </script>
 
 <div class="grid justify-center">
 	<main class="w-min mt-1">
-		<JumbledWords />
+		<JumbledWords {getWords} />
 		<JumbledPhrase />
 		<EmptyPhrase />
 		<Solve />
