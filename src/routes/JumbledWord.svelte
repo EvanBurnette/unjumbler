@@ -10,7 +10,6 @@
 
 <section>
 	<label for="jumbledIn" class="label flex" aria-label="{idx} scrambled word">
-		<span>{idx}</span>
 		<input
 			bind:value={jumbledWord}
 			on:change={async () => {
