@@ -21,7 +21,6 @@
 		}
 		getWords = worker.getWords;
 	});
-	$: console.log(Object.values($jumbledPhraseStore).join(''));
 </script>
 
 <div class="grid justify-center">
