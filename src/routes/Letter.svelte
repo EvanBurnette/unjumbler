@@ -13,7 +13,7 @@
 		});
 		selected = !selected;
 	};
-	$: console.debug(selected);
+
 	let button: HTMLButtonElement;
 
 	onDestroy(() => {
