@@ -17,3 +17,6 @@ export const jumber = derived(jumbledPhraseStore, ($jumbledPhraseStore) => {
 		return v + acc;
 	}, 0);
 });
+
+const emptyWords: number[] = [];
+export const emptyWordsStore = writable(emptyWords);

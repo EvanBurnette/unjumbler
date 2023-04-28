@@ -4,9 +4,10 @@
 	import JumbledPhrase from './JumbledPhrase.svelte';
 	import Solve from './Solve.svelte';
 	import { onMount } from 'svelte';
-	import { jumbledPhraseStore } from './stores';
 
 	let getWords: Function;
+	let setupData: Function;
+	let getPhrases: Function;
 
 	onMount(async () => {
 		const worker = new ComlinkWorker<typeof import('./worker')>(
@@ -20,6 +21,8 @@
 			console.error(error);
 		}
 		getWords = worker.getWords;
+		setupData = worker.setupData;
+		getPhrases = worker.getPhrases;
 	});
 </script>
 
@@ -28,7 +31,7 @@
 		<JumbledWords {getWords} />
 		<JumbledPhrase />
 		<EmptyPhrase />
-		<Solve />
+		<Solve {setupData} {getPhrases} />
 	</main>
 </div>
 

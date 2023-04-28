@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { jumbledPhraseStore, readyToSolve, jumber } from './stores';
+	import { jumbledPhraseStore, readyToSolve, jumber, emptyWordsStore } from './stores';
 
 	let empties: boolean[] = [];
 
@@ -13,27 +13,38 @@
 		empties = empties;
 	};
 
+	const addWord = () => {
+		if (empties.length == 0) {
+			addLetter();
+			return;
+		}
+		addSpace();
+		addLetter();
+	};
+
 	const deleteLast = () => {
-		empties.pop();
+		let blank = empties.pop();
+		while (!blank && empties.length > 0) blank = empties.pop();
 		empties = empties;
 	};
 
-	let emptyWords: number[] = [];
 	let numEmpties = 0;
 
 	$: {
-		emptyWords = empties.reduce(
-			(acc, cur) => {
-				if (cur) {
-					return [...acc.slice(0, -1), acc.slice(-1)[0] + 1];
-				} else {
-					acc.push(0);
-					return acc;
-				}
-			},
-			[0]
+		emptyWordsStore.set(
+			empties.reduce(
+				(acc, cur) => {
+					if (cur) {
+						return [...acc.slice(0, -1), acc.slice(-1)[0] + 1];
+					} else {
+						acc.push(0);
+						return acc;
+					}
+				},
+				[0]
+			)
 		);
-		numEmpties = emptyWords.reduce((acc, cur) => acc + cur, 0);
+		numEmpties = $emptyWordsStore.reduce((acc, cur) => acc + cur, 0);
 	}
 
 	$: readyToSolve.set(numEmpties != 0 && numEmpties === $jumber);
@@ -53,6 +64,6 @@
 	<button class="xButton" on:click={deleteLast}>X</button>
 </ul>
 <div class="flex">
-	<button class="btn variant-ringed-primary grow" on:click={addLetter}> + Add Letter </button>
-	<button class="btn variant-ringed-primary grow" on:click={addSpace}> + Add Space </button>
+	<button class="btn variant-ringed-primary grow" on:click={addWord}> + Word </button>
+	<button class="btn variant-ringed-primary grow" on:click={addLetter}> + Letter </button>
 </div>
