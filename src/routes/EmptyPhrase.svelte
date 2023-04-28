@@ -1,5 +1,7 @@
-<script>
-	let empties = [true, true, true];
+<script lang="ts">
+	import { jumbledPhraseStore, readyToSolve, jumber } from './stores';
+
+	let empties: boolean[] = [];
 
 	const addLetter = () => {
 		empties.push(true);
@@ -15,6 +17,26 @@
 		empties.pop();
 		empties = empties;
 	};
+
+	let emptyWords: number[] = [];
+	let numEmpties = 0;
+
+	$: {
+		emptyWords = empties.reduce(
+			(acc, cur) => {
+				if (cur) {
+					return [...acc.slice(0, -1), acc.slice(-1)[0] + 1];
+				} else {
+					acc.push(0);
+					return acc;
+				}
+			},
+			[0]
+		);
+		numEmpties = emptyWords.reduce((acc, cur) => acc + cur, 0);
+	}
+
+	$: readyToSolve.set(numEmpties != 0 && numEmpties === $jumber);
 </script>
 
 <ul class="h-8 w-full flex flex-auto">
