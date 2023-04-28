@@ -2,6 +2,8 @@
 	export let idx: number;
 	export let getWords: Function;
 
+	import Letter from './Letter.svelte';
+
 	let jumbledWord = '';
 	let suggestions: string[] = [];
 
@@ -38,9 +40,7 @@
 		{:else}
 			<li class="flex">
 				{#each selection as letter}
-					<button class="btn uppercase w-full">
-						{letter}
-					</button>
+					<Letter {letter} />
 				{/each}
 				<button
 					aria-controls="deselect word"

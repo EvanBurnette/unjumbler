@@ -4,6 +4,7 @@
 	import JumbledPhrase from './JumbledPhrase.svelte';
 	import Solve from './Solve.svelte';
 	import { onMount } from 'svelte';
+	import { jumbledPhraseStore } from './stores';
 
 	let getWords: Function;
 
@@ -20,6 +21,7 @@
 		}
 		getWords = worker.getWords;
 	});
+	$: console.log(Object.values($jumbledPhraseStore).join(''));
 </script>
 
 <div class="grid justify-center">
@@ -36,6 +38,9 @@
 		border: dotted white 1px;
 	} */
 	:global(.xButton) {
-		@apply btn variant-filled-tertiary py-0.5 px-2.5 rounded;
+		@apply btn variant-ringed-primary py-0.5 px-2.5;
+	}
+	:global(*) {
+		/* border: solid black 1px; */
 	}
 </style>
