@@ -14,7 +14,7 @@
 			new URL('/worker', import.meta.url)
 		);
 		try {
-			const dictionary_raw_res = await fetch('/words_alpha.txt.gz');
+			const dictionary_raw_res = await fetch('/words_alpha.txt');
 			const dictionary_raw = await (await dictionary_raw_res.blob()).text();
 			worker.setDictionary(dictionary_raw);
 		} catch (error) {
