@@ -24,7 +24,7 @@
 				<JumbledWord {idx} {getWords} />
 				<button
 					aria-controls="delete word"
-					class="xButton self-start"
+					class="btn variant-ringed-primary py-0.5 px-2.5 self-start"
 					on:click={() => {
 						// this hack prevents the svelte runtime from only deleting the last element
 						jumbledWords[idx] = false;

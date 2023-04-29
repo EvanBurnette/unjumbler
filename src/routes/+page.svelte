@@ -34,15 +34,3 @@
 		<Solve {setupData} {getPhrases} />
 	</main>
 </div>
-
-<style lang="postcss">
-	/* :global(*) {
-		border: dotted white 1px;
-	} */
-	:global(.xButton) {
-		@apply btn variant-ringed-primary py-0.5 px-2.5;
-	}
-	:global(*) {
-		/* border: solid black 1px; */
-	}
-</style>

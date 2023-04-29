@@ -61,7 +61,7 @@
 		{/if}
 	{/each}
 	<span class="grow" />
-	<button class="xButton" on:click={deleteLast}>X</button>
+	<button class="btn variant-ringed-primary py-0.5 px-2.5" on:click={deleteLast}>X</button>
 </ul>
 <div class="flex">
 	<button class="btn variant-ringed-primary grow" on:click={addWord}> + Word </button>

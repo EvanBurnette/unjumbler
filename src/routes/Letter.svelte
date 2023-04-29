@@ -6,7 +6,7 @@
 	let selected = false;
 
 	const toggleLetter = (letter: string) => {
-		button.classList.toggle('selectedLetter');
+		button.classList.toggle('variant-filled-success');
 		jumbledPhraseStore.update((counts) => {
 			counts[letter] += selected ? -1 : 1;
 			return counts;
@@ -34,9 +34,3 @@
 >
 	{letter}
 </button>
-
-<style lang="postcss">
-	:global(.selectedLetter) {
-		@apply variant-filled-success;
-	}
-</style>

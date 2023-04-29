@@ -44,7 +44,7 @@
 				{/each}
 				<button
 					aria-controls="deselect word"
-					class="xButton"
+					class="btn variant-ringed-primary py-0.5 px-2.5"
 					on:click={() => {
 						selection = '';
 					}}>X</button
