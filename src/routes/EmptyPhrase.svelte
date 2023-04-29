@@ -13,18 +13,8 @@
 		empties = empties;
 	};
 
-	const addWord = () => {
-		if (empties.length == 0) {
-			addLetter();
-			return;
-		}
-		addSpace();
-		addLetter();
-	};
-
 	const deleteLast = () => {
-		let blank = empties.pop();
-		while (!blank && empties.length > 0) blank = empties.pop();
+		empties.pop();
 		empties = empties;
 	};
 
@@ -64,6 +54,6 @@
 	<button class="btn variant-ringed-primary py-0.5 px-2.5" on:click={deleteLast}>X</button>
 </ul>
 <div class="flex">
-	<button class="btn variant-ringed-primary grow" on:click={addWord}> + Word </button>
+	<button class="btn variant-ringed-primary grow" on:click={addSpace}> + Space </button>
 	<button class="btn variant-ringed-primary grow" on:click={addLetter}> + Letter </button>
 </div>
