@@ -11,7 +11,7 @@ let dictionaryMap: { word: string; counts: Counts }[] = [];
 export const setDictionary = (dictionary_raw: string) => {
 	dictionary = dictionary_raw.split('\n');
 	createDictionaryMap();
-	// console.debug(dictionaryMap.slice(0, 10));
+	console.debug(dictionaryMap.slice(0, 10));
 };
 
 const countLetters = (word: string) => {
