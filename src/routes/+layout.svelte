@@ -38,6 +38,12 @@
 			<svelte:fragment slot="trail">
 				<LightSwitch />
 				<button class="btn btn-sm variant-ghost-surface" on:click={modalDemo}> About </button>
+				<button
+					class="btn btn-sm variant-ghost-surface"
+					on:click={() => (location.href = '/?testWords=sevlo+teh+lebmuj')}
+				>
+					Demo
+				</button>
 				<a
 					class="btn btn-sm variant-ghost-surface"
 					href="https://github.com/EvanBurnette/unjumbler"
