@@ -3,6 +3,15 @@
 
 	let jumbledWords = new Array();
 
+	export let testWords: string[];
+
+	$: if (testWords !== undefined && testWords.length !== 0) {
+		jumbledWords = [];
+		for (const word of testWords) {
+			addWord();
+		}
+	}
+
 	function addWord() {
 		jumbledWords.push(true);
 		jumbledWords = jumbledWords;
@@ -21,7 +30,11 @@
 	{#each jumbledWords as jWord, idx}
 		{#if jWord}
 			<li class="flex">
-				<JumbledWord {idx} {getWords} />
+				{#if testWords.length !== 0}
+					<JumbledWord {idx} {getWords} testWord={testWords[idx]} />
+				{:else}
+					<JumbledWord {idx} {getWords} />
+				{/if}
 				<button
 					aria-controls="delete word"
 					class="btn variant-ringed-primary py-0.5 px-2.5 self-start"

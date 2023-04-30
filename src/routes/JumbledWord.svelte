@@ -1,22 +1,31 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	export let idx: number;
 	export let getWords: Function;
+	export let testWord: string = '';
 
 	import Letter from './Letter.svelte';
 
-	let jumbledWord = '';
+	let jumbledWord = testWord;
 	let suggestions: string[] = [];
 
 	let selection: string = '';
+
+	const getSuggestions = async () => {
+		suggestions = await getWords(jumbledWord.toLowerCase());
+	};
+	onMount(() => {
+		if (testWord !== '') {
+			getSuggestions();
+		}
+	});
 </script>
 
 <section>
 	<label for="jumbledIn" class="label flex" aria-label="{idx} scrambled word">
 		<input
 			bind:value={jumbledWord}
-			on:change={async () => {
-				suggestions = await getWords(jumbledWord.toLowerCase());
-			}}
+			on:change={getSuggestions}
 			id="jumbledIn"
 			type="text"
 			class="input text-center text-xl uppercase"

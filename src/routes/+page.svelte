@@ -9,6 +9,8 @@
 	let setupData: Function;
 	let getPhrases: Function;
 
+	let testWords: string[] = [];
+
 	onMount(async () => {
 		const worker = new ComlinkWorker<typeof import('./worker')>(
 			new URL('/worker', import.meta.url)
@@ -23,12 +25,20 @@
 		getWords = worker.getWords;
 		setupData = worker.setupData;
 		getPhrases = worker.getPhrases;
+
+		const params = new URL(document.location).searchParams;
+
+		const paramTestWords = params.get('testWords')?.split(' ');
+		if (paramTestWords !== undefined) {
+			testWords = paramTestWords;
+			console.debug(testWords);
+		}
 	});
 </script>
 
 <div class="grid justify-center">
 	<main class="w-min mt-1">
-		<JumbledWords {getWords} />
+		<JumbledWords {getWords} {testWords} />
 		<JumbledPhrase />
 		<EmptyPhrase />
 		<Solve {setupData} {getPhrases} />
