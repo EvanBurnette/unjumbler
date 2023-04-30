@@ -38,6 +38,7 @@ export const getWords = (jumbledWord: string) => {
 const _getPhrases = (jumbledPhrase: Counts, foundPhrases: string[], idx = 0, phrase = '') => {
 	//base case: if we've used up all the words then the phrase is good
 	if (idx >= subDictionaries.length) {
+		// console.debug(phrase);
 		foundPhrases.push(phrase);
 		return;
 	}
@@ -59,9 +60,9 @@ let subDictionaries: WordAndCounts[][];
 let jPhrase: Counts;
 export const getPhrases = () => {
 	let foundPhrases: string[] = [];
-	console.debug('getPhrases');
+	const start = Date.now();
 	_getPhrases(jPhrase, foundPhrases);
-
+	console.debug('time to complete phrase finding', Date.now() - start, 'ms');
 	return foundPhrases;
 };
 
