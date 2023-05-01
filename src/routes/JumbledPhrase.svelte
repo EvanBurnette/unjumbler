@@ -6,7 +6,8 @@
 		.map(([k, v]) => {
 			return new Array(v).fill(k).join('');
 		})
-		.join('');
+		.join('')
+		.toUpperCase();
 </script>
 
 <label class="label" for="phrase">
