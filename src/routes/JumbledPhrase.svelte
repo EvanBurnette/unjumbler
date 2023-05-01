@@ -6,11 +6,10 @@
 		.map(([k, v]) => {
 			return new Array(v).fill(k).join('');
 		})
-		.join('')
-		.toUpperCase();
+		.join('');
 </script>
 
 <label class="label" for="phrase">
 	<span> {$jumber} Jumbled Letters </span>
-	<input bind:value={jumbledPhrase} id="phrase" type="text" class="input text-center" />
+	<input bind:value={jumbledPhrase} id="phrase" type="text" class="input text-center uppercase" />
 </label>
