@@ -28,7 +28,7 @@
 </script>
 
 <div class="grid justify-center">
-	<main class="w-min mt-1">
+	<main class="mt-2">
 		<JumbledWords {getWords} />
 		<JumbledPhrase />
 		<EmptyPhrase />
