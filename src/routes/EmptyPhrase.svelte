@@ -40,6 +40,7 @@
 	$: readyToSolve.set(numEmpties != 0 && numEmpties === $jumber);
 </script>
 
+<p>Empty phrase</p>
 <ul class="h-8 w-full flex flex-auto my-2">
 	{#each empties as empty}
 		{#if empty}
