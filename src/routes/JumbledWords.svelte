@@ -17,20 +17,21 @@
 	}
 </script>
 
-<ul>
+<ul class="">
 	{#each jumbledWords as jWord, idx}
 		{#if jWord}
-			<li class="flex">
-				<JumbledWord {idx} {getWords} />
-				<button
-					aria-controls="delete word"
-					class="btn variant-ringed-primary py-0.5 px-2.5 self-start"
-					on:click={() => {
-						// this hack prevents the svelte runtime from only deleting the last element
-						jumbledWords[idx] = false;
-						jumbledWords = jumbledWords;
-					}}>X</button
-				>
+			<li class="w-full my-2">
+				<JumbledWord {idx} {getWords}>
+					<button
+						aria-controls="delete word"
+						class="btn variant-ringed-primary py-0.5 px-2.5"
+						on:click={() => {
+							// this hack prevents the svelte runtime from only deleting the last element
+							jumbledWords[idx] = false;
+							jumbledWords = jumbledWords;
+						}}>X</button
+					>
+				</JumbledWord>
 			</li>
 		{/if}
 	{/each}

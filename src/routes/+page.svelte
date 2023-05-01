@@ -28,7 +28,8 @@
 </script>
 
 <div class="grid justify-center">
-	<main class="mt-2">
+	<main class="my-2">
+		<p>Jumbled words</p>
 		<JumbledWords {getWords} />
 		<JumbledPhrase />
 		<EmptyPhrase />

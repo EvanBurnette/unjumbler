@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { jumbledPhraseStore, readyToSolve, jumber, emptyWordsStore } from './stores';
 
-	let empties: boolean[] = [];
+	let empties: boolean[] = [true];
 
 	const addLetter = () => {
 		empties.push(true);
@@ -40,7 +40,7 @@
 	$: readyToSolve.set(numEmpties != 0 && numEmpties === $jumber);
 </script>
 
-<ul class="h-8 w-full flex flex-auto">
+<ul class="h-8 w-full flex flex-auto my-2">
 	{#each empties as empty}
 		{#if empty}
 			<li class="h-full aspect-square border-2 border-primary-900">

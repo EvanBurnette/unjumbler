@@ -9,7 +9,7 @@
 		.join('');
 </script>
 
-<label class="label" for="phrase">
+<label class="label my-2" for="phrase">
 	<span> {$jumber} Jumbled Letters </span>
 	<input bind:value={jumbledPhrase} id="phrase" type="text" class="input text-center uppercase" />
 </label>

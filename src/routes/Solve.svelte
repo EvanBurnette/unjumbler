@@ -21,6 +21,6 @@
 </button>
 <ul class="flex flex-col">
 	{#each solutions as solution}
-		<li class="borde flex justify-center">{solution.toUpperCase()}</li>
+		<li class="flex justify-center">{solution.toUpperCase()}</li>
 	{/each}
 </ul>
