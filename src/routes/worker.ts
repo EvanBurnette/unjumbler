@@ -59,9 +59,9 @@ let subDictionaries: WordAndCounts[][];
 let jPhrase: Counts;
 export const getPhrases = () => {
 	let foundPhrases: string[] = [];
-	console.debug('getPhrases');
+	const start = Date.now();
 	_getPhrases(jPhrase, foundPhrases);
-
+	console.debug('phrases found in', Date.now() - start, 'ms');
 	return foundPhrases;
 };
 
