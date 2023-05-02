@@ -30,7 +30,7 @@
 <button
 	bind:this={button}
 	on:click={() => toggleLetter(letter)}
-	class="btn border border-success-500 uppercase w-full grow-0 h-8 aspect-square"
+	class="btn border border-success-500 uppercase w-full grow-0 h-12 aspect-square"
 >
 	{letter}
 </button>
