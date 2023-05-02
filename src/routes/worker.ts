@@ -48,14 +48,14 @@ const _getPhrases = (
 		addSolutionProxy(phrase);
 		return;
 	}
-	for (const { word: word, counts: counts } of subDictionaries[idx]) {
+	outerLoop: for (const { word: word, counts: counts } of subDictionaries[idx]) {
 		const jumbledPhrase_clone = structuredClone(jumbledPhrase);
 		// console.debug(jumbledPhrase_clone);
 		// if each jumbledPhrase_clone[key] - counts[key] of current doesn't go negative
 		for (const key in counts) {
 			jumbledPhrase_clone[key] -= counts[key];
 			//early exit because we ran out of a particular letter
-			if (jumbledPhrase_clone[key] < 0) break;
+			if (jumbledPhrase_clone[key] < 0) continue outerLoop;
 		}
 		//add word to phrase and recursively call
 		_getPhrases(jumbledPhrase_clone, foundPhrases, addSolutionProxy, idx + 1, `${phrase} ${word}`);
