@@ -1,8 +1,17 @@
 <script lang="ts">
 	import { emptyWordsStore, jumbledPhraseStore, readyToSolve } from './stores';
+	import * as Comlink from 'comlink';
 	let solutions: string[] = [];
 	export let setupData: Function;
 	export let getPhrases: Function;
+
+	const addSolution = (newSolution: string) => {
+		solutions.push(newSolution);
+		solutions = solutions;
+	};
+
+	const addSolutionProxy = Comlink.proxy(addSolution);
+
 	const solve = async () => {
 		if (!$readyToSolve) {
 			solutions = ['mismatched or missing letters and blanks'];
@@ -10,7 +19,9 @@
 		}
 		solutions = [];
 		await setupData($jumbledPhraseStore, $emptyWordsStore);
-		solutions = await getPhrases();
+		// solutions = await getPhrases();
+		// create callback and proxy of callback to mutate solutions
+		getPhrases(addSolutionProxy);
 	};
 </script>
 
