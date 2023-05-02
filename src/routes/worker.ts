@@ -35,10 +35,17 @@ export const getWords = (jumbledWord: string) => {
 		.map((word) => word.word);
 };
 
-const _getPhrases = (jumbledPhrase: Counts, foundPhrases: string[], idx = 0, phrase = '') => {
+const _getPhrases = (
+	jumbledPhrase: Counts,
+	foundPhrases: string[],
+	addSolutionProxy: Function,
+	idx = 0,
+	phrase = ''
+) => {
 	//base case: if we've used up all the words then the phrase is good
 	if (idx >= subDictionaries.length) {
-		foundPhrases.push(phrase);
+		// foundPhrases.push(phrase);
+		addSolutionProxy(phrase);
 		return;
 	}
 	findNeighbors: for (const { word: word, counts: counts } of subDictionaries[idx]) {
@@ -51,16 +58,16 @@ const _getPhrases = (jumbledPhrase: Counts, foundPhrases: string[], idx = 0, phr
 			if (jumbledPhrase_clone[key] < 0) continue findNeighbors;
 		}
 		//add word to phrase and recursively call
-		_getPhrases(jumbledPhrase_clone, foundPhrases, idx + 1, `${phrase} ${word}`);
+		_getPhrases(jumbledPhrase_clone, foundPhrases, addSolutionProxy, idx + 1, `${phrase} ${word}`);
 	}
 };
 
 let subDictionaries: WordAndCounts[][];
 let jPhrase: Counts;
-export const getPhrases = () => {
+export const getPhrases = (addSolutionProxy: Function) => {
 	let foundPhrases: string[] = [];
 	const start = Date.now();
-	_getPhrases(jPhrase, foundPhrases);
+	_getPhrases(jPhrase, foundPhrases, addSolutionProxy);
 	console.debug('phrases found in', Date.now() - start, 'ms');
 	return foundPhrases;
 };
