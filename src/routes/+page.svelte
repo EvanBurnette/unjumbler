@@ -14,8 +14,7 @@
 			new URL('/worker', import.meta.url)
 		);
 		try {
-			// const dictionary_raw_res = await fetch('/words_alpha.txt');
-			const dictionary_raw_res = await fetch('/dictionary.csv');
+			const dictionary_raw_res = await fetch('dictionary_medium_mod.csv');
 			const dictionary_raw = await (await dictionary_raw_res.blob()).text();
 			worker.setDictionary(dictionary_raw);
 		} catch (error) {
