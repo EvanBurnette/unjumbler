@@ -24,11 +24,6 @@ const isSubset = (wordCounts: Counts, phraseCounts: Counts): boolean => {
 	return true;
 };
 
-type Counts = { [key: string]: number };
-type WordAndCounts = {
-	word: string;
-	counts: Counts;
-};
 let dictionary: string[] = [];
 let dictionaryMap: { word: string; counts: Counts }[] = [];
 

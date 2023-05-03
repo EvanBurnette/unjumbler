@@ -1,11 +1,5 @@
 console.debug('hello from subworker');
 
-type Counts = { [key: string]: number };
-type WordAndCounts = {
-	word: string;
-	counts: Counts;
-};
-
 export const _getPhrases = (
 	jumbledPhrase: Counts,
 	foundPhrases: string[],
