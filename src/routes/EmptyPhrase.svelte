@@ -37,18 +37,24 @@
 		numEmpties = $emptyWordsStore.reduce((acc, cur) => acc + cur, 0);
 	}
 
-	$: readyToSolve.set(numEmpties != 0 && numEmpties === $jumber);
+	$: readyToSolve.set(numEmpties > 1 && numEmpties === $jumber);
+	let boxWidth = 10;
+
+	$: boxWidth = Math.min(Math.floor(100 / $jumber), Math.floor(100 / empties.length));
 </script>
 
 <p>Empty phrase</p>
-<ul class="h-8 w-full flex flex-auto my-2">
+<ul class="w-full flex my-2">
 	{#each empties as empty}
 		{#if empty}
-			<li class="h-full aspect-square border-2 border-primary-900">
+			<li
+				class="aspect-square border-2 border-primary-900 my-auto"
+				style="width: min({boxWidth}%, 2rem); height: min({boxWidth}%, 2rem);"
+			>
 				<div class="w-full aspect-square rounded-full border border-dotted border-primary-500" />
 			</li>
 		{:else}
-			<li class="h-full aspect-square" />
+			<li style="width: min({boxWidth}%, 2rem)" />
 		{/if}
 	{/each}
 	<span class="grow" />
