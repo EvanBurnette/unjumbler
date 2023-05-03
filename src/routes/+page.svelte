@@ -28,7 +28,7 @@
 </script>
 
 <div class="grid justify-center">
-	<main class="my-2">
+	<main class="my-2" style="width: min(95vw, 40ch)">
 		<p>Jumbled words</p>
 		<JumbledWords {getWords} />
 		<JumbledPhrase />
