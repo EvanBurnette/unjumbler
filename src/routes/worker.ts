@@ -1,4 +1,28 @@
-import { isEqual } from 'lodash';
+const isEqual = (counts1: Counts, counts2: Counts): boolean => {
+	for (const key in counts1) {
+		if (!(key in counts2)) {
+			return false;
+		}
+		if (counts1[key] !== counts2[key]) {
+			return false;
+		}
+	}
+	// in case we encounter the shorter word first, make sure there are no uncounted letters
+	if (Object.keys(counts1).length != Object.keys(counts2).length) {
+		return false;
+	}
+	return true;
+};
+
+const isSubset = (wordCounts: Counts, phraseCounts: Counts): boolean => {
+	// we know the empty phrase has all letters so skip that step
+	for (const key in wordCounts) {
+		if (wordCounts[key] > phraseCounts[key]) {
+			return false;
+		}
+	}
+	return true;
+};
 
 type Counts = { [key: string]: number };
 type WordAndCounts = {
@@ -84,10 +108,7 @@ export let setupData = (jumbledPhrase: Counts, emptyWords: number[]) => {
 	subDictionaries = emptyWords.map((numLetters) => {
 		return dictionaryMap.filter(({ word: word, counts: counts }) => {
 			if (!(numLetters === word.length)) return false;
-			for (const key in counts) {
-				if (!lettersInPhrase.has(key)) return false;
-			}
-			return true;
+			return isSubset(counts, jumbledPhrase);
 		});
 	});
 
