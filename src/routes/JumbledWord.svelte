@@ -15,6 +15,7 @@
 		<input
 			bind:value={jumbledWord}
 			on:change={async () => {
+				selection = '';
 				suggestions = await getWords(jumbledWord.toLowerCase());
 			}}
 			id="jumbledIn"
