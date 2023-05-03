@@ -32,9 +32,7 @@
 <!-- App Shell -->
 <AppShell>
 	<!-- <div class="grid border-2 items-center"> -->
-	<Modal width="w-modal-slim">
-		<footer>footer</footer>
-	</Modal>
+	<Modal width="w-modal-slim" />
 	<!-- </div> -->
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
