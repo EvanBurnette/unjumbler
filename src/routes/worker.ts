@@ -1,3 +1,5 @@
+import type { Remote } from 'comlink';
+
 const isEqual = (counts1: Counts, counts2: Counts): boolean => {
 	for (const key in counts1) {
 		if (!(key in counts2)) {
@@ -57,7 +59,11 @@ export const getWords = (jumbledWord: string) => {
 const numCpus = navigator.hardwareConcurrency;
 const isMobile = navigator.maxTouchPoints > 0;
 
-const subWorkers = [];
+const subWorkers:
+	| Remote<typeof import('./subWorker')>[]
+	| {
+			_getPhrases: (arg0: Counts, arg1: never[], arg2: Function, arg3: WordAndCounts[][]) => void;
+	  }[] = [];
 let concurrency = isMobile ? 2 : Math.max(2, Math.floor(numCpus / 2));
 for (let i = 0; i < concurrency; i++) {
 	const subWorker = new ComlinkWorker<typeof import('./subWorker')>(
