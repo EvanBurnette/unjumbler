@@ -55,7 +55,7 @@ export const getWords = (jumbledWord: string) => {
 };
 
 const numCpus = navigator.hardwareConcurrency;
-const isMobile = navigator.maxTouchPoints !== 0;
+const isMobile = navigator.maxTouchPoints > 0;
 
 const subWorkers = [];
 let concurrency = isMobile ? 2 : Math.max(2, Math.floor(numCpus / 2));
