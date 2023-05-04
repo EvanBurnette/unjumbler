@@ -1,4 +1,8 @@
-console.debug('hello from subworker');
+let id = 0;
+export function setWorkerId(wid: number): void {
+	id = wid;
+	console.debug(`hello from subworker ${id}`);
+}
 
 export const _getPhrases = (
 	jumbledPhrase: Counts,
@@ -7,12 +11,12 @@ export const _getPhrases = (
 	subDictionaries: WordAndCounts[][],
 	idx = 0,
 	phrase = ''
-) => {
+): number => {
 	//base case: if we've used up all the words then the phrase is good
 	if (idx >= subDictionaries.length) {
 		// foundPhrases.push(phrase);
-		addSolutionProxy(phrase);
-		return;
+		addSolutionProxy(phrase, id);
+		return id;
 	}
 	outerLoop: for (const { word: word, counts: counts } of subDictionaries[idx]) {
 		const jumbledPhrase_clone = structuredClone(jumbledPhrase);
@@ -33,4 +37,5 @@ export const _getPhrases = (
 			`${phrase} ${word}`
 		);
 	}
+	return id;
 };

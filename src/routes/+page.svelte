@@ -8,6 +8,7 @@
 	let getWords: Function;
 	let setupData: Function;
 	let getPhrases: Function;
+	let getNumSubworkers: Function;
 
 	onMount(async () => {
 		const worker = new ComlinkWorker<typeof import('./worker')>(
@@ -23,6 +24,8 @@
 		getWords = worker.getWords;
 		setupData = worker.setupData;
 		getPhrases = worker.getPhrases;
+		getNumSubworkers = worker.getNumSubworkers;
+		console.debug('getNumSubworkers', getNumSubworkers);
 	});
 </script>
 
@@ -32,6 +35,6 @@
 		<JumbledWords {getWords} />
 		<JumbledPhrase />
 		<EmptyPhrase />
-		<Solve {setupData} {getPhrases} />
+		<Solve {setupData} {getPhrases} {getNumSubworkers} />
 	</main>
 </div>

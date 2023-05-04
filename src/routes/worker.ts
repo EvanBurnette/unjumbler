@@ -58,32 +58,41 @@ export const getWords = (jumbledWord: string) => {
 
 const numCpus = navigator.hardwareConcurrency;
 const isMobile = navigator.maxTouchPoints > 0;
+let concurrency = isMobile ? 2 : Math.max(2, Math.floor(numCpus / 2));
+
+export const setConcurrency = (userNum: number) => {
+	concurrency = userNum;
+};
+
+export const getNumSubworkers = (): number => {
+	return concurrency;
+};
 
 const subWorkers:
 	| Remote<typeof import('./subWorker')>[]
 	| {
 			_getPhrases: (arg0: Counts, arg1: never[], arg2: Function, arg3: WordAndCounts[][]) => void;
 	  }[] = [];
-let concurrency = isMobile ? 2 : Math.max(2, Math.floor(numCpus / 2));
 for (let i = 0; i < concurrency; i++) {
 	const subWorker = new ComlinkWorker<typeof import('./subWorker')>(
 		new URL('/subWorker', import.meta.url)
 	);
+	subWorker.setWorkerId(i);
 	subWorkers.push(subWorker);
 }
 
-console.debug('hello from worker');
+console.debug('hello from main worker');
 
 let subDictionaries: WordAndCounts[][];
 let jPhrase: Counts;
 export const getPhrases = (addSolutionProxy: Function) => {
-	if (numCpus > subDictionaries[0].length) {
+	if (concurrency > subDictionaries[0].length) {
 		subWorkers[0]._getPhrases(jPhrase, [], addSolutionProxy, subDictionaries);
 	} else {
 		subWorkers.forEach((subWorker, i) => {
 			const subRange = {
-				start: i * Math.floor(subDictionaries[0].length / numCpus),
-				end: (i + 1) * Math.floor(subDictionaries[0].length / numCpus)
+				start: i * Math.floor(subDictionaries[0].length / concurrency),
+				end: (i + 1) * Math.floor(subDictionaries[0].length / concurrency)
 			};
 			if (i === subWorkers.length - 1) {
 				subRange.end = subDictionaries[0].length + 1;

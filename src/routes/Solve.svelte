@@ -1,23 +1,24 @@
 <script lang="ts">
 	import { emptyWordsStore, jumbledPhraseStore, readyToSolve } from './stores';
 	import * as Comlink from 'comlink';
-	let solutions: string[] = [];
+	let solutionArrays: string[][] = [];
 	export let setupData: Function;
 	export let getPhrases: Function;
+	export let getNumSubworkers: Function;
 
-	const addSolution = (newSolution: string) => {
-		solutions.push(newSolution);
-		solutions = solutions;
+	const addSolution = (newSolution: string, subArrId: number) => {
+		solutionArrays[subArrId].push(newSolution);
+		solutionArrays = solutionArrays;
 	};
 
 	const addSolutionProxy = Comlink.proxy(addSolution);
 
 	const solve = async () => {
 		if (!$readyToSolve) {
-			solutions = ['mismatched or missing letters and blanks'];
+			solutionArrays = [['mismatched or missing letters and blanks']];
 			return;
 		}
-		solutions = [];
+		solutionArrays = new Array(await getNumSubworkers()).fill([]).map((item) => new Array());
 		await setupData($jumbledPhraseStore, $emptyWordsStore);
 		// solutions = await getPhrases();
 		// create callback and proxy of callback to mutate solutions
@@ -31,7 +32,7 @@
 	>Solve now!
 </button>
 <ul class="flex flex-col">
-	{#each solutions as solution}
+	{#each solutionArrays.flat() as solution}
 		<li class="flex justify-center">{solution.toUpperCase()}</li>
 	{/each}
 </ul>
