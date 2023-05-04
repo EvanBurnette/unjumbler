@@ -81,20 +81,38 @@ export const getWords = (jumbledWord: string) => {
 // 	}
 // };
 
-const cpus = navigator.hardwareConcurrency;
+const numCpus = navigator.hardwareConcurrency;
 
-const subWorker = new ComlinkWorker<typeof import('./subWorker')>(
-	new URL('/subWorker', import.meta.url)
-);
-
-const _getPhrases = subWorker._getPhrases;
+const subWorkers = [];
+for (let i = 0; i < Math.floor(numCpus / 1); i++) {
+	// for (let i = 0; i < 1; i++) {
+	const subWorker = new ComlinkWorker<typeof import('./subWorker')>(
+		new URL('/subWorker', import.meta.url)
+	);
+	subWorkers.push(subWorker);
+}
 
 console.debug('hello from worker');
 
 let subDictionaries: WordAndCounts[][];
 let jPhrase: Counts;
 export const getPhrases = (addSolutionProxy: Function) => {
-	_getPhrases(jPhrase, [], addSolutionProxy, subDictionaries);
+	if (numCpus > subDictionaries[0].length) {
+		subWorkers[0]._getPhrases(jPhrase, [], addSolutionProxy, subDictionaries);
+	} else {
+		subWorkers.forEach((subWorker, i) => {
+			const subRange = {
+				start: i * Math.floor(subDictionaries[0].length / numCpus),
+				end: (i + 1) * Math.floor(subDictionaries[0].length / numCpus)
+			};
+			if (i === subWorkers.length - 1) {
+				subRange.end = subDictionaries[0].length + 1;
+			}
+			const subSubDictionaries = structuredClone(subDictionaries);
+			subSubDictionaries[0] = subSubDictionaries[0].slice(subRange.start, subRange.end);
+			subWorkers[i]._getPhrases(jPhrase, [], addSolutionProxy, subSubDictionaries);
+		});
+	}
 };
 
 export let setupData = (jumbledPhrase: Counts, emptyWords: number[]) => {
