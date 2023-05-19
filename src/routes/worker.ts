@@ -1,4 +1,15 @@
 import type { Remote } from 'comlink';
+import { _getPhrases } from './subWorker';
+
+export function getSubworkersAllowed(): boolean {
+	if (Worker == undefined) {
+		return false;
+	}
+	return true;
+}
+
+const fallback = !getSubworkersAllowed();
+// console.debug(_getPhrases, fallback);
 
 const isEqual = (counts1: Counts, counts2: Counts): boolean => {
 	for (const key in counts1) {
@@ -32,7 +43,7 @@ let dictionaryMap: { word: string; counts: Counts }[] = [];
 export const setDictionary = (dictionary_raw: string) => {
 	dictionary = dictionary_raw.split('\n');
 	createDictionaryMap();
-	console.debug(dictionaryMap.slice(0, 10));
+	// console.debug(dictionaryMap.slice(0, 10));
 };
 
 const countLetters = (word: string) => {
@@ -74,20 +85,30 @@ const subWorkers:
 			_getPhrases: (arg0: Counts, arg1: never[], arg2: Function, arg3: WordAndCounts[][]) => void;
 	  }[] = [];
 for (let i = 0; i < concurrency; i++) {
-	const subWorker = new ComlinkWorker<typeof import('./subWorker')>(
-		new URL('/subWorker', import.meta.url)
-	);
-	subWorker.setWorkerId(i);
-	subWorkers.push(subWorker);
+	try {
+		const subWorker = new ComlinkWorker<typeof import('./subWorker')>(
+			new URL('/subWorker', import.meta.url)
+		);
+		// console.debug(e);
+		subWorker.setWorkerId(i);
+		subWorkers.push(subWorker);
+	} catch (error) {
+		console.error(error);
+	}
 }
 
-console.debug('hello from main worker');
+// console.debug('noSubworkers', noSubworkers);
+// console.debug('subWorkers.length', subWorkers.length);
+// console.debug('subWorkers', subWorkers);
+// console.debug('hello from main worker');
+// console.debug('concurrency', concurrency);
 
 let subDictionaries: WordAndCounts[][];
 let jPhrase: Counts;
 export const getPhrases = (addSolutionProxy: Function) => {
-	if (concurrency > subDictionaries[0].length) {
-		subWorkers[0]._getPhrases(jPhrase, [], addSolutionProxy, subDictionaries);
+	if (concurrency > subDictionaries[0].length || fallback) {
+		_getPhrases(jPhrase, [], addSolutionProxy, subDictionaries);
+		console.debug('fallback');
 	} else {
 		subWorkers.forEach((subWorker, i) => {
 			const subRange = {
@@ -99,7 +120,7 @@ export const getPhrases = (addSolutionProxy: Function) => {
 			}
 			const subSubDictionaries = structuredClone(subDictionaries);
 			subSubDictionaries[0] = subSubDictionaries[0].slice(subRange.start, subRange.end);
-			subWorkers[i]._getPhrases(jPhrase, [], addSolutionProxy, subSubDictionaries);
+			subWorker._getPhrases(jPhrase, [], addSolutionProxy, subSubDictionaries);
 		});
 	}
 };

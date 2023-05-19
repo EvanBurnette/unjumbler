@@ -1,7 +1,7 @@
 let id = 0;
 export function setWorkerId(wid: number): void {
 	id = wid;
-	console.debug(`hello from subworker ${id}`);
+	// console.debug(`hello from subworker ${id}`);
 }
 
 export const _getPhrases = (
@@ -28,6 +28,8 @@ export const _getPhrases = (
 			if (jumbledPhrase_clone[key] < 0) continue outerLoop;
 		}
 		//add word to phrase and recursively call
+		// setTimeout(
+		// 	() =>
 		_getPhrases(
 			jumbledPhrase_clone,
 			foundPhrases,
@@ -36,6 +38,8 @@ export const _getPhrases = (
 			idx + 1,
 			`${phrase} ${word}`
 		);
+		// 	0
+		// );
 	}
 	return id;
 };
