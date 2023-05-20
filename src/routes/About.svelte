@@ -11,7 +11,7 @@
 <p>
 	This is a webapp to ruin the fun of the popular newspaper word game <a
 		href="https://www.google.com/search?q=jumble&tbm=isch"
-		target="_blank">Jumble™️</a
+		target="_blank">Jumble&trade;</a
 	>
 </p>
 <figure class="flex flex-col">
