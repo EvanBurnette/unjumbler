@@ -46,9 +46,9 @@
 		const { left, right, top, bottom } = aboutDialog.getBoundingClientRect();
 		const { clientX, clientY } = e;
 		if (clientX > right || clientX < left || clientY > bottom || clientY < top) {
+			e.preventDefault();
 			closeModal();
 		}
-		// aboutDialog.close();
 	};
 	let blurBackground = '';
 	$: {
@@ -58,7 +58,7 @@
 
 <div class="w-[100vw] h-[100vh] absolute bg-black {blurBackground}">
 	<dialog
-		on:click|preventDefault={onClickOutSide}
+		on:click={onClickOutSide}
 		on:keydown={(e) => {
 			if (e.key === 'Escape') {
 				aboutDialog.close();
