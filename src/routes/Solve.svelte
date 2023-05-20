@@ -18,7 +18,10 @@
 			solutionArrays = [['mismatched or missing letters and blanks']];
 			return;
 		}
-		solutionArrays = new Array(await getNumSubworkers()).fill([]).map((item) => new Array());
+		const numArrays = await getNumSubworkers().catch((err: Error) => {
+			return 1;
+		});
+		solutionArrays = new Array(numArrays).fill([]).map((item) => new Array());
 		await setupData($jumbledPhraseStore, $emptyWordsStore);
 		// solutions = await getPhrases();
 		// create callback and proxy of callback to mutate solutions
