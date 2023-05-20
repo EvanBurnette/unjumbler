@@ -5,16 +5,16 @@
 		<link rel="icon" href="./favicon.png" />
 		<meta name="viewport" content="width=device-width" />
 		<meta http-equiv="content-security-policy" content="">
-		<link href="./_app/immutable/assets/_layout.68bfb0ee.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.6fc79ddd.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.a34ff815.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.71a2b3f7.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.9fbca728.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.9409e6c6.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/_layout.svelte.98597402.js">
+		<link href="./_app/immutable/assets/_layout.e6244424.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.54522a67.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.bd91c92b.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.0fb20739.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.9ea097fb.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.b817d71e.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/_layout.svelte.8863bd03.js">
 		<link rel="modulepreload" href="./_app/immutable/entry/_layout.ts.984db11e.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/_layout.da46b06b.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/_page.svelte.85b25b9b.js"><!-- HEAD_svelte-1fqad1o_START --><!-- HTML_TAG_START --><script>(function setInitialClassState() {
+		<link rel="modulepreload" href="./_app/immutable/entry/_page.svelte.ebdeabc1.js"><!-- HEAD_svelte-1fqad1o_START --><!-- HTML_TAG_START --><script>(function setInitialClassState() {
   const elemHtmlClasses = document.documentElement.classList;
   const condLocalStorageUserPrefs = localStorage.getItem("modeUserPrefers") === "false";
   const condLocalStorageUserPrefsExists = !("modeUserPrefers" in localStorage);
@@ -30,13 +30,28 @@
 		<div style="display: contents" class="h-full overflow-hidden">
 
 
+<div class="w-[100vw] h-[100vh] absolute bg-black opacity-0 z-[-10]"><dialog class="modal w-min-content z-30 bg-surface-100-800-token text-token max-w-[40ch]"><span class="flex justify-between"><h3>About Unjumbler</h3>
+	<span></span>
+	<button class="btn py-0.5 px-2.5 mb-4">X</button></span>
+<p>This is a webapp to ruin the fun of the popular newspaper word game <a href="https://www.google.com/search?q=jumble&tbm=isch" target="_blank">Jumble™</a></p>
+<figure class="flex flex-col"><img class="my-4 border-2 border-primary-900 max-w-xl mb-0" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Jumble_puzzle.png" alt="Jumble puzzle with jumbled words: YNAROC [1,4,5] DISNM [1,2,5] NYNIT [1,3] ARHCEB [2,3,6] and empty phrase of 2 letters and then 9 letters. Cartoon has a scientist whereing a labcoat where the clue is 'The biologist broke up with the physicist because they had ...'">
+	<figcaption><p style="font-size:x-small; line-height:normal;"><a href="https://upload.wikimedia.org/wikipedia/commons/6/6b/Jumble_puzzle.png">Example Jumble style puzzle</a>
+			from Lord Belbury, scientist cartoon by BAUSCHRON on wikimedia
+			<a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></p></figcaption></figure>
+
+<h3 class="mt-6">How to use</h3>
+<ol class="list-decimal mx-4"><li>Add jumbled words</li>
+	<li>Select the correct suggestion</li>
+	<li>Select the letters from each word to fill in the phrase</li>
+	<li>Create the phrase template</li>
+	<li>Click &quot;Solve now!&quot; for phrase suggestions</li></ol></dialog></div>
 
 <div id="appShell" class="w-full h-full flex flex-col overflow-hidden " data-testid="app-shell">
 	<header id="shell-header" class="flex-none z-10">
 		
 		<div class="app-bar flex flex-col bg-surface-100-800-token  space-y-4 p-4  " data-testid="app-bar" role="toolbar" aria-label="" aria-labelledby="">
 	<div class="app-bar-row-main grid items-center grid-cols-[auto_1fr_auto] gap-4 ">
-		<div class="app-bar-slot-lead flex-none flex justify-between items-center "><strong class="text-xl uppercase">unjumbler</strong></div>
+		<div class="app-bar-slot-lead flex-none flex justify-between items-center "><strong class="text-md uppercase">unjumbler</strong></div>
 		
 		<div class="app-bar-slot-default flex-auto "></div>
 		
@@ -45,7 +60,8 @@
 <div class="lightswitch-track cursor-pointer transition-all duration-[200ms] w-12 h-6 ring-[1px] ring-surface-500/30 rounded-token bg-surface-900 " role="switch" aria-label="Light Switch" aria-checked="false" title="Toggle Light Mode" tabindex="0">
 	<div class="lightswitch-thumb aspect-square scale-[0.8] flex justify-center items-center transition-all duration-[200ms] h-6 rounded-token bg-surface-50 ">
 		<svg class="lightswitch-icon w-[70%] aspect-square fill-surface-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path></svg></div></div>
-				<button class="btn btn-sm variant-ghost-surface">About </button>
+				<button class="btn btn-sm variant-ghost-surface">About
+				</button>
 				<a class="btn btn-sm variant-ghost-surface" href="https://github.com/EvanBurnette/unjumbler" target="_blank" rel="noreferrer">GitHub
 				</a>
 			</div></div>
@@ -64,9 +80,6 @@
 			
 			<main id="page-content" class="flex-auto ">
 	
-
-
-	
 	
 	
 	<div class="grid justify-center"><main class="my-2" style="width: min(95vw, 40ch)"><p>Jumbled words</p>
@@ -80,7 +93,7 @@
 	</button></div>
 		<label class="label my-2" for="phrase"><span>0 Jumbled Letters </span>
 	<input id="phrase" type="text" class="input text-center uppercase" value=""></label>
-		<p>Empty phrase</p>
+		<p>Phrase template</p>
 <ul class="w-full flex my-2"><li class="aspect-square border-2 border-primary-900 my-auto" style="width: min(100%, 2rem); height: min(100%, 2rem);"><div class="w-full aspect-square rounded-full border border-dotted border-primary-500"></div>
 			</li>
 	<span class="grow"></span>
@@ -104,7 +117,7 @@
 			
 			<script>
 				{
-					__sveltekit_ap1jte = {
+					__sveltekit_rmsuwr = {
 						base: new URL(".", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -114,8 +127,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.6fc79ddd.js"),
-						import("./_app/immutable/entry/app.9409e6c6.js")
+						import("./_app/immutable/entry/start.54522a67.js"),
+						import("./_app/immutable/entry/app.b817d71e.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 2],
