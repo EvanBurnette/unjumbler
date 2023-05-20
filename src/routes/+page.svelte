@@ -25,7 +25,6 @@
 		setupData = worker.setupData;
 		getPhrases = worker.getPhrases;
 		getNumSubworkers = worker.getNumSubworkers;
-		console.debug('getNumSubworkers', getNumSubworkers);
 	});
 </script>
 
