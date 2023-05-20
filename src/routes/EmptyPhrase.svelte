@@ -43,7 +43,7 @@
 	$: boxWidth = Math.min(Math.floor(100 / $jumber), Math.floor(100 / empties.length));
 </script>
 
-<p>Empty phrase</p>
+<p>Phrase template</p>
 <ul class="w-full flex my-2">
 	{#each empties as empty}
 		{#if empty}
