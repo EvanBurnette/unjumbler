@@ -13,6 +13,8 @@
 
 	import { LightSwitch } from '@skeletonlabs/skeleton';
 
+	import About from './About.svelte';
+
 	// import { Modal, modalStore } from '@skeletonlabs/skeleton';
 	// import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
 	// const aboutModal = () => {
@@ -27,47 +29,48 @@
 	// 	};
 	// 	modalStore.trigger(alert);
 	// };
-	let aboutDialog: HTMLDialogElement = { open: false };
+	let aboutDialog: HTMLDialogElement;
 	let dialogOpen = false;
 	export const openAbout = () => {
 		dialogOpen = true;
-		aboutDialog.show();
+		aboutDialog.showModal();
 	};
 
+	function closeModal() {
+		aboutDialog.close();
+		dialogOpen = false;
+	}
+
 	const onClickOutSide = (e: MouseEvent) => {
-		console.debug(e);
+		// console.debug(e);
 		const { left, right, top, bottom } = aboutDialog.getBoundingClientRect();
 		const { clientX, clientY } = e;
 		if (clientX > right || clientX < left || clientY > bottom || clientY < top) {
-			aboutDialog.close();
+			closeModal();
 		}
-		dialogOpen = false;
-		aboutDialog.close();
+		// aboutDialog.close();
 	};
 	let blurBackground = '';
 	$: {
-		blurBackground = dialogOpen ? 'z-20 opacity-70' : 'opacity-0 z-[-10]';
+		blurBackground = dialogOpen ? 'z-20 opacity-50' : 'opacity-0 z-[-10]';
 	}
 </script>
 
-<div on:click={onClickOutSide} class="w-[100vw] h-[100vh] absolute bg-black {blurBackground}" />
-<dialog
-	on:keydown={(e) => {
-		if (e.key === 'Escape') {
-			aboutDialog.close();
-			dialogOpen = false;
-		}
-	}}
-	bind:this={aboutDialog}
-	class="modal w-modal-wide absolute top-[10%] z-30 bg-surface-100-800-token text-primary-400"
->
-	<p>
-		Ruin the fun of the popular newspaper word game <a
-			href="https://www.google.com/search?q=jumble&tbm=isch"
-			target="_blank">Jumble™️</a
-		>
-	</p>
-</dialog>
+<div class="w-[100vw] h-[100vh] absolute bg-black {blurBackground}">
+	<dialog
+		on:click|preventDefault={onClickOutSide}
+		on:keydown={(e) => {
+			if (e.key === 'Escape') {
+				aboutDialog.close();
+				dialogOpen = false;
+			}
+		}}
+		bind:this={aboutDialog}
+		class="modal w-min-content z-30 bg-surface-100-800-token text-token max-w-[40ch]"
+	>
+		<About {closeModal} />
+	</dialog>
+</div>
 <!-- App Shell -->
 <AppShell>
 	<!-- <Modal width="w-modal-slim" /> -->
@@ -76,11 +79,18 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase">unjumbler</strong>
+				<strong class="text-md uppercase">unjumbler</strong>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<LightSwitch />
-				<button class="btn btn-sm variant-ghost-surface" on:click={openAbout}> About </button>
+				<button
+					class="btn btn-sm variant-ghost-surface"
+					on:click={() => {
+						openAbout();
+					}}
+				>
+					About
+				</button>
 				<a
 					class="btn btn-sm variant-ghost-surface"
 					href="https://github.com/EvanBurnette/unjumbler"
