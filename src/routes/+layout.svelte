@@ -30,7 +30,7 @@
 	// 	modalStore.trigger(alert);
 	// };
 	let aboutDialog: HTMLDialogElement;
-	let dialogOpen = false;
+	let dialogOpen = true;
 	export const openAbout = () => {
 		dialogOpen = true;
 		aboutDialog.showModal();
